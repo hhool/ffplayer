@@ -1,0 +1,12 @@
+prefix=
+exec_prefix=
+libdir=${pcfiledir}
+includedir=/cygdrive/f/project/ffmpeg/ffmpeg.videolan/ffmpeg-0.7.4/ffmpeg-0.7.4-origin/ffmpeg-0.7.4
+
+Name: libavfilter
+Description: FFmpeg video filtering library
+Version: 1.80.0
+Requires: 
+Conflicts:
+Libs: ${libdir}/libavfilter.a -lm -lz 
+Cflags: -I${includedir}

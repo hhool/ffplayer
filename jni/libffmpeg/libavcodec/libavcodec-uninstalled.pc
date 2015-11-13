@@ -1,0 +1,12 @@
+prefix=
+exec_prefix=
+libdir=${pcfiledir}
+includedir=/cygdrive/f/project/TSPlayer/other/ff/jni/libffmpeg
+
+Name: libavcodec
+Description: FFmpeg codec library
+Version: 52.122.0
+Requires: libavutil = 50.43.0
+Conflicts:
+Libs: ${libdir}/libavcodec.a -lm -lz 
+Cflags: -I${includedir}

@@ -1,0 +1,12 @@
+prefix=
+exec_prefix=
+libdir=${pcfiledir}
+includedir=/cygdrive/f/project/TSPlayer/other/ff/jni/libffmpeg
+
+Name: libswscale
+Description: FFmpeg image rescaling library
+Version: 0.14.1
+Requires: libavutil = 50.43.0
+Conflicts:
+Libs: ${libdir}/libswscale.a -lm
+Cflags: -I${includedir}

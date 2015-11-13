@@ -1,0 +1,25 @@
+/**
+ * @file   util_crc32.h
+ * @author windsome <windsome@windsome-desktop>
+ * @date   Tue Jan 12 18:14:38 2010
+ * 
+ * @brief  
+ * 
+ * 
+ */
+#ifndef __UTIL_CRC32_H__
+#define __UTIL_CRC32_H__
+
+class UtilCrc32
+{
+public:
+    static unsigned int crc32 (unsigned char *block, unsigned int length);
+
+private:
+    static unsigned int crc_tab[256];
+    static bool mbTableInit;
+
+    static void gentab ();
+};
+
+#endif

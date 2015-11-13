@@ -1,0 +1,12 @@
+prefix=
+exec_prefix=
+libdir=${pcfiledir}
+includedir=/cygdrive/f/project/TSPlayer/other/ff/jni/libffmpeg
+
+Name: libavutil
+Description: FFmpeg utility library
+Version: 50.43.0
+Requires: 
+Conflicts:
+Libs: ${libdir}/libavutil.a -lm
+Cflags: -I${includedir}
