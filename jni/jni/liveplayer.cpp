@@ -155,18 +155,21 @@ static void liveplayer_native_init(JNIEnv *env)
     {
     	g_fields.surface_native = env->GetFieldID(surface, "mNativeSurface", "I");
     }
-    else
+    else if(g_nSDKVersion == 19)
     {
     	g_fields.surface_native = env->GetFieldID(surface, "mNativeObject", "I");
     }
+    else if(g_nSDKVersion >= 20)
+    {
+        g_fields.surface_native = env->GetFieldID(surface, "mNativeObject", "J");
+    }
+
     if (g_fields.surface_native == NULL)
     {
-    	if (g_fields.surface_native == NULL)
-        {
-    		jniThrowException(env, "java/lang/RuntimeException", "Can't find Surface.mSurface");
-    		return;
-        }
+        jniThrowException(env, "java/lang/RuntimeException", "Can't find Surface.mSurface");
+        return;
     }
+
 
     CAndroidLivePlayerListener::mspost_event = env->GetStaticMethodID(clazz, "postEventFromNative","(Ljava/lang/Object;IIILjava/lang/Object;)V");
 	if (CAndroidLivePlayerListener::mspost_event == NULL)
