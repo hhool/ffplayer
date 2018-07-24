@@ -14,92 +14,90 @@ class CBasePlayer;
 class CBaseDecoder;
 class CMasterClock;
 
-class CDemux : public UtilThread
-{
+class CDemux : public UtilThread {
 public:
-    CDemux (CBasePlayer* Player);
-    ~CDemux ();
+  CDemux(CBasePlayer* Player);
+  ~CDemux();
 
-    int 	SetDataSource(const char *url);
-    int 	Reset ();
-    int 	Start ();
-	int 	Pause (bool bPause);
-	bool 	IsPaused();
-    int 	Stop ();
-	void	Interrupt();
-    int 	Seek (double pos);
-	bool 	IsSeekable();
-	bool 	IsCanPause();
-    void 	ThreadEntry ();
+  int   SetDataSource(const char *url);
+  int   Reset();
+  int   Start();
+  int   Pause(bool bPause);
+  bool   IsPaused();
+  int   Stop();
+  void  Interrupt();
+  int   Seek(double pos);
+  bool   IsSeekable();
+  bool   IsCanPause();
+  void   ThreadEntry();
 
-    AVPacket GetVideoPacket ();
-    AVPacket GetAudioPacket ();
+  AVPacket GetVideoPacket();
+  AVPacket GetAudioPacket();
 
-    // get information, must call after OpenInputFile ().
-    AVFormatContext* GetFormatContext ();
-    int 	GetVideoStreamIndex ();
-    int 	GetAudioStreamIndex ();
-    void   	SetSyncPTS(double SyncPTS);
-	double 	GetSyncPTS();
-	void   	SetSynced(bool bSynced = true);
-	bool   	IsSynced();
-	void	SetAudioReadForPlay(bool bReady = true);
-	bool	IsAudioReadyForPlay();
-	void   	SetAudioOutPlay(CBaseDecoder* AOP);
-	void   	SetVideoOutPlay(CBaseDecoder* VOP);
-	void   	SetMasterClock (CMasterClock* clock);
-	bool	IsEmptyAudioQueue();
-	bool	IsEmptyVideoQueue();
+  // get information, must call after OpenInputFile ().
+  AVFormatContext* GetFormatContext();
+  int   GetVideoStreamIndex();
+  int   GetAudioStreamIndex();
+  void     SetSyncPTS(double SyncPTS);
+  double   GetSyncPTS();
+  void     SetSynced(bool bSynced = true);
+  bool     IsSynced();
+  void  SetAudioReadForPlay(bool bReady = true);
+  bool  IsAudioReadyForPlay();
+  void     SetAudioOutPlay(CBaseDecoder* AOP);
+  void     SetVideoOutPlay(CBaseDecoder* VOP);
+  void     SetMasterClock(CMasterClock* clock);
+  bool  IsEmptyAudioQueue();
+  bool  IsEmptyVideoQueue();
 protected:
-	int     CheckQueueData(CDemux* This,bool bCheckLow = true);
-	void	UpdateDuration(bool bForce = false);
+  int     CheckQueueData(CDemux* This, bool bCheckLow = true);
+  void  UpdateDuration(bool bForce = false);
 private:
-	bool 	mIsPaused;
-	bool 	mbLow;
-	bool 	mbReachEnd;
-	bool 	mbReadOk;
-	int		mPercent;
-	bool	mFirstCache;
-	
-private:
-	typedef enum _Demux_Cache_State
-	{
-		DCS_NONE				= 0x0,
-		DCS_BUFFING_BEFORE_SYNC = 0x1,
-		DCS_SYNC				= 0x2,
-		DCS_BUFFING_AFTER_SYNC  = 0x3,
-		DCS_CHECK_LOW			= 0x4,
-	}Demux_Cache_State;
-	
-    int OpenInputFile (string url);
-    int AvSeekFrame (double pos);
-    static int DecodeInterruptCB(void* pThis);
-private:
-    string          msUrl;
-    bool     		mbQuit;
-	static bool		mbInterrupt;
-    UtilSingleLock  mOperationLock;
+  bool   mIsPaused;
+  bool   mbLow;
+  bool   mbReachEnd;
+  bool   mbReadOk;
+  int    mPercent;
+  bool  mFirstCache;
 
-    AVFormatContext *mpFormatCtx;
-    int             miVideoStream;
-    int             miAudioStream;
+private:
+  typedef enum _Demux_Cache_State {
+    DCS_NONE = 0x0,
+    DCS_BUFFING_BEFORE_SYNC = 0x1,
+    DCS_SYNC = 0x2,
+    DCS_BUFFING_AFTER_SYNC = 0x3,
+    DCS_CHECK_LOW = 0x4,
+  }Demux_Cache_State;
 
-    CPacketQueue    mAudioQueue;
-    CPacketQueue    mVideoQueue;
-    CBasePlayer*	mPlayer;
-    double			mSyncPTS;
-	bool			mbSynced;
-	bool			mbAudioReadyForPlay;
-	bool			mbPaused;
-	CBaseDecoder*	mAOutPlay;
-	CBaseDecoder*	mVOutPlay;
-    CMasterClock* 	mpClock;
-	bool			mbSeek;
-	bool			mSeekable;
-	bool			mCanPause;
-	int				mMaxCache;
-	Demux_Cache_State	mDCS;
-	bool			mbOpened;
+  int OpenInputFile(string url);
+  int AvSeekFrame(double pos);
+  static int DecodeInterruptCB(void* pThis);
+private:
+  string          msUrl;
+  bool         mbQuit;
+  static bool    mbInterrupt;
+  UtilSingleLock  mOperationLock;
+
+  AVFormatContext *mpFormatCtx;
+  int             miVideoStream;
+  int             miAudioStream;
+
+  CPacketQueue    mAudioQueue;
+  CPacketQueue    mVideoQueue;
+  CBasePlayer*  mPlayer;
+  double      mSyncPTS;
+  bool      mbSynced;
+  bool      mbAudioReadyForPlay;
+  bool      mbPaused;
+  CBaseDecoder*  mAOutPlay;
+  CBaseDecoder*  mVOutPlay;
+  CMasterClock*   mpClock;
+  bool      mbSeek;
+  bool      mSeekable;
+  bool      mCanPause;
+  int        mMaxCache;
+  Demux_Cache_State  mDCS;
+  bool      mbOpened;
 };
 
 #endif

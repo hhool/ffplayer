@@ -15,33 +15,32 @@ class CBasePlayer;
 
 #define VAILD_DATASIZE (1*1024*1024)
 
-class CTimeShiftManage : public UtilThread
-{
+class CTimeShiftManage : public UtilThread {
 public:
-    CTimeShiftManage (CBasePlayer* Player);
-    ~CTimeShiftManage ();
+  CTimeShiftManage(CBasePlayer* Player);
+  ~CTimeShiftManage();
 
-	int		SetDataSource(const char *url);
-    void 	ThreadEntry ();
-	int		Reset ();
-	void	SetTimeShiftInfo(TimeShiftInfo TShiftInfo);
-	bool	IsDataAvailable();
-	bool	IsAlowTimeShift();
-	char*	GetTimeShiftURL();
-	int		Start();
-	int		Stop();
-	bool	IsRun();
-	bool 	IsNeedQuit();
+  int    SetDataSource(const char *url);
+  void   ThreadEntry();
+  int    Reset();
+  void  SetTimeShiftInfo(TimeShiftInfo TShiftInfo);
+  bool  IsDataAvailable();
+  bool  IsAlowTimeShift();
+  char*  GetTimeShiftURL();
+  int    Start();
+  int    Stop();
+  bool  IsRun();
+  bool   IsNeedQuit();
 protected:
-	FILE*			mTimeShiftFile;
-	int				mState;
-	int64_t			mCurSize;
-	TimeShiftInfo 	mTShiftInfo;
-    CBasePlayer*	mPlayer;
-	bool			mbQuit;
-	AVIOContext* 	mpIO;
-	string			mStrDataSource;
-	
+  FILE*      mTimeShiftFile;
+  int        mState;
+  int64_t      mCurSize;
+  TimeShiftInfo   mTShiftInfo;
+  CBasePlayer*  mPlayer;
+  bool      mbQuit;
+  AVIOContext*   mpIO;
+  string      mStrDataSource;
+
 };
 
 #endif

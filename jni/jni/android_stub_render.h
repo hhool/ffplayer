@@ -6,34 +6,32 @@
 #include "iaudiorender.h"
 #include "ivideorender.h"
 
-class CAndroidAudioStubRender : public CAudioStubRender
-{
+class CAndroidAudioStubRender : public CAudioStubRender {
 public:
-    CAndroidAudioStubRender (IAudioRender* stub);
-    ~CAndroidAudioStubRender ();
+  CAndroidAudioStubRender(IAudioRender* stub);
+  ~CAndroidAudioStubRender();
 public:
-	virtual int 	Start();
-	virtual	int 	Flush();
-	virtual int  	Stop();
-	virtual int		Pause();
-	virtual bool 	IsStart();
-    virtual int 	Write (const AudioSample& SrcAudioSample);
-	virtual bool	IsRenderFinish();
+  virtual int 	Start();
+  virtual	int 	Flush();
+  virtual int  	Stop();
+  virtual int		Pause();
+  virtual bool 	IsStart();
+  virtual int 	Write(const AudioSample& SrcAudioSample);
+  virtual bool	IsRenderFinish();
 
 private:
-    IAudioRender* mpStub;
+  IAudioRender* mpStub;
 };
 
 class CAndroidVideoStubRender : public CVideoStubRender {
 public:
-    CAndroidVideoStubRender (IVideoRender* stub);
-    ~CAndroidVideoStubRender ();
-    int ShowPicture (AVFrame *pFrame);
-	virtual int Flush();
+  CAndroidVideoStubRender(IVideoRender* stub);
+  ~CAndroidVideoStubRender();
+  int ShowPicture(AVFrame *pFrame);
+  virtual int Flush();
 
 private:
-    IVideoRender* mpStub;
+  IVideoRender* mpStub;
 };
-
 
 #endif

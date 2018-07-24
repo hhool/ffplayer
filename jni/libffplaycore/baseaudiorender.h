@@ -6,56 +6,51 @@
 #define MAX_BUFFER_NUM 16
 
 
-typedef struct waveBuffer
-{
-	void* 		   Ptr;
-	int			   ReadPos;
-	int			   LeftBytes;
-	int 		   Bytes;
-	waveBuffer	  *Next;
-	double		   RefTime;
+typedef struct waveBuffer {
+  void*      Ptr;
+  int        ReadPos;
+  int        LeftBytes;
+  int        Bytes;
+  waveBuffer *Next;
+  double     RefTime;
 }waveBuffer;
 
 class UtilSingleLock;
 class CMasterClock;
-class CBaseAudioRender
-{
+class CBaseAudioRender {
 
 public:
-	CBaseAudioRender();
-	~CBaseAudioRender();
+  CBaseAudioRender();
+  ~CBaseAudioRender();
 public:
-	void SetClock(CMasterClock*	Clock);
-	
-protected:
-	waveBuffer* GetBuffer();
-	void		ReleaseBuffer(waveBuffer* Buffer,bool bUpdateTime = false);
-	void		BufferReset();
-	int 		AddBufferToList(const AudioSample& ASample);
-	double		CalculateScaledTime(AudioFormat AFormat,int Length);
-	bool		IsListEmpty();
-protected:
-	CMasterClock* mClock;
-	int 		  mBufferLimit;
-	int 		  mBufferUsed;
-	waveBuffer*   mBufferFillFirst;
-	waveBuffer*   mBufferFillLast;
-	
-	waveBuffer*   mBufferFreeFirst;
-	waveBuffer*   mBufferFreeLast;
-		
-	waveBuffer*   mCurBuffer;
-	int 		  mBufferLength;
-	int 		  mFillPos;
-	int 		  mBytes;
+  void SetClock(CMasterClock*  Clock);
 
-	double		  mFillLastTime;
-	double 		  mBufferScaledTime;
-	double		  mBufferScaledAdjust;
+protected:
+  waveBuffer* GetBuffer();
+  void    ReleaseBuffer(waveBuffer* Buffer, bool bUpdateTime = false);
+  void    BufferReset();
+  int     AddBufferToList(const AudioSample& ASample);
+  double  CalculateScaledTime(AudioFormat AFormat, int Length);
+  bool    IsListEmpty();
+protected:
+  CMasterClock* mClock;
+  int       mBufferLimit;
+  int       mBufferUsed;
+  waveBuffer*   mBufferFillFirst;
+  waveBuffer*   mBufferFillLast;
 
-	UtilSingleLock	mLock;
+  waveBuffer*   mBufferFreeFirst;
+  waveBuffer*   mBufferFreeLast;
+  waveBuffer*   mCurBuffer;
+  int       mBufferLength;
+  int       mFillPos;
+  int       mBytes;
+
+  double      mFillLastTime;
+  double       mBufferScaledTime;
+  double      mBufferScaledAdjust;
+
+  UtilSingleLock  mLock;
 };
 
-
 #endif
-

@@ -15,45 +15,44 @@ class IVideoRender;
 class IAudioRender;
 class CAndroidAudioStubRender;
 class CAndroidVideoStubRender;
-class CAndroidLivePlayer : public CBasePlayer
-{
+class CAndroidLivePlayer : public CBasePlayer {
 public:
-    CAndroidLivePlayer (string strPackageName);
-    ~CAndroidLivePlayer ();
-    void SetListener(CBasePlayerListener* Listener);
+  CAndroidLivePlayer(string strPackageName);
+  ~CAndroidLivePlayer();
+  void SetListener(CBasePlayerListener* Listener);
 #if PLATFORM <= 17
-    int  SetVideoSurface (const android::sp<android::Surface>& surface);
+  int  SetVideoSurface(const android::sp<android::Surface>& surface);
 #else
-	int  SetVideoSurface (void* surface);
+  int  SetVideoSurface(void* surface);
 #endif
-	int  SetDisplayType(int DType);
-    int  SetDataSource (const char* filepath,int type);
-    int  Start ();
-    int  Stop ();
-    int  Pause ();
-    int  Seek (double sec);
-    int  Release ();
-    int  Reset ();
-    int  SetVolume (float left, float right);
-    int  GetVideoWidth ();
-    int  GetVideoHeight ();
-    bool 	IsPlaying ();
-    double 	GetCurrentPosition ();
-    double 	GetDuration ();
-	bool 	IsSeekable();
-	bool	IsCanPause();
-	int     SetLogLevel(int level);
+  int  SetDisplayType(int DType);
+  int  SetDataSource(const char* filepath, int type);
+  int  Start();
+  int  Stop();
+  int  Pause();
+  int  Seek(double sec);
+  int  Release();
+  int  Reset();
+  int  SetVolume(float left, float right);
+  int  GetVideoWidth();
+  int  GetVideoHeight();
+  bool  IsPlaying();
+  double  GetCurrentPosition();
+  double  GetDuration();
+  bool  IsSeekable();
+  bool IsCanPause();
+  int     SetLogLevel(int level);
 protected:
-	bool	SetupVideoOutPut();
-	void	ReSendVideo();
-	bool	SetupAudioOutPut();
+  bool SetupVideoOutPut();
+  void ReSendVideo();
+  bool SetupAudioOutPut();
 private:
-    IVideoRender* 				mpVideoRender;
-    IAudioRender* 				mpAudioRender;
-    CAndroidAudioStubRender* 	mpAudioStubRender;
-    CAndroidVideoStubRender* 	mpVideoStubRender;
-    int miVideoWidth;
-    int miVideoHeight;
+  IVideoRender*     mpVideoRender;
+  IAudioRender*     mpAudioRender;
+  CAndroidAudioStubRender*  mpAudioStubRender;
+  CAndroidVideoStubRender*  mpVideoStubRender;
+  int miVideoWidth;
+  int miVideoHeight;
 };
 
 #endif

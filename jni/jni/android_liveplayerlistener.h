@@ -3,31 +3,29 @@
 
 #include "baseplayer.h"
 
-class ThreadInfo
-{
+class ThreadInfo {
 public:
-	JNIEnv* mEnv;
-	int     mThreadID;
+  JNIEnv* mEnv;
+  int     mThreadID;
 };
 // ----------------------------------------------------------------------------
 // ref-counted object for callbacks
-class CAndroidLivePlayerListener: public CBasePlayerListener
-{
+class CAndroidLivePlayerListener : public CBasePlayerListener {
 public:
-	CAndroidLivePlayerListener(JNIEnv* env, jobject thiz, jobject weak_thiz);
-    ~CAndroidLivePlayerListener();
-	int  AttachThread();
-	void DetachThread();
-    void Notify(int msg, int ext1, int ext2);
+  CAndroidLivePlayerListener(JNIEnv* env, jobject thiz, jobject weak_thiz);
+  ~CAndroidLivePlayerListener();
+  int  AttachThread();
+  void DetachThread();
+  void Notify(int msg, int ext1, int ext2);
 private:
-    CAndroidLivePlayerListener();
-    jclass      mClass;     // Reference to MediaPlayer class
-    jobject     mObject;    // Weak ref to MediaPlayer Java object to call on
-    UtilSingleLock  mOperationLock;
+  CAndroidLivePlayerListener();
+  jclass      mClass;     // Reference to MediaPlayer class
+  jobject     mObject;    // Weak ref to MediaPlayer Java object to call on
+  UtilSingleLock  mOperationLock;
 
-	list<ThreadInfo> mEnvList;
+  list<ThreadInfo> mEnvList;
 public:
-    static jmethodID   mspost_event;
+  static jmethodID   mspost_event;
 };
 
 #endif

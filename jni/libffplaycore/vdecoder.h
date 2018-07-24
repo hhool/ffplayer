@@ -3,28 +3,27 @@
 
 #include "basedecoder.h"
 
-class CVideoStubRender : public CStubRender
-{
+class CVideoStubRender : public CStubRender {
 public:
-    virtual ~CVideoStubRender () {}
-    virtual int ShowPicture (AVFrame *pFrame) = 0;
-	virtual int Flush() = 0;
+  virtual ~CVideoStubRender() {}
+  virtual int ShowPicture(AVFrame *pFrame) = 0;
+  virtual int Flush() = 0;
 };
 
 class CVideoDecoder : public CBaseDecoder {
 public:
-	CVideoDecoder();
-	~CVideoDecoder();
+  CVideoDecoder();
+  ~CVideoDecoder();
 public:
-    void ThreadEntry ();
-	void ReDrawPictrue();
+  void ThreadEntry();
+  void ReDrawPictrue();
 protected:
-	void Reset();
+  void Reset();
 private:
-	bool mbFirstKeyFrame;
-	bool mbNeedReSync;
-	bool mbNextFrame;
-	AVFrame* mpFrame;
+  bool mbFirstKeyFrame;
+  bool mbNeedReSync;
+  bool mbNextFrame;
+  AVFrame* mpFrame;
 };
 
 #endif

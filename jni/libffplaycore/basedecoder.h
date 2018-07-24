@@ -8,46 +8,43 @@
 #include "packetList.h"
 #include "masterclock.h"
 
-/** 
- * this is an empty base class, just a interface. 
- * 
- * 
+/**
+ * this is an empty base class, just a interface.
+ *
+ *
  */
-class CStubRender
-{
+class CStubRender {
 };
 
-class CBaseDecoder : public UtilThread
-{
+class CBaseDecoder : public UtilThread {
 public:
-	typedef enum _ExitReason
-	{
-		ER_AUTO = 0x1,
-		ER_QUIT = 0x2
-	}ExitReason;
-	
-    CBaseDecoder ();
-    ~CBaseDecoder ();
+  typedef enum _ExitReason {
+    ER_AUTO = 0x1,
+    ER_QUIT = 0x2
+  }ExitReason;
 
-    void SetDemux	 	(CDemux* Demux);
-    void SetStream 		(AVStream* Stream);
-    void SetStubRender  (CStubRender* StubRender);
-    void SetMasterClock (CMasterClock* Clock);
+  CBaseDecoder();
+  ~CBaseDecoder();
 
-    virtual int Start ();
-    virtual int Stop ();
-	int Wait ();
-	CBaseDecoder::ExitReason ThreadExitReason();
+  void SetDemux(CDemux* Demux);
+  void SetStream(AVStream* Stream);
+  void SetStubRender(CStubRender* StubRender);
+  void SetMasterClock(CMasterClock* Clock);
+
+  virtual int Start();
+  virtual int Stop();
+  int Wait();
+  CBaseDecoder::ExitReason ThreadExitReason();
 protected:
-    virtual void ThreadEntry ();
+  virtual void ThreadEntry();
 protected:
-    CDemux* 		mpDemux;
-    AVStream* 		mpStream;
-    CStubRender* 	mpStubRender;
-    CMasterClock* 	mpClock;
+  CDemux*       mpDemux;
+  AVStream*     mpStream;
+  CStubRender*  mpStubRender;
+  CMasterClock* mpClock;
 
-    bool mbQuit;
-    UtilSingleLock  mOperationLock;
+  bool mbQuit;
+  UtilSingleLock  mOperationLock;
 };
 
 #endif
